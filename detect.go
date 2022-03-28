@@ -14,6 +14,9 @@ type PathParser interface {
 	Get(path string) (projectPath string, err error)
 }
 
+// NoStartScriptError indicates that the targeted project does no have a start command in their package.json
+const NoStartScriptError = "no start script in package.json"
+
 func Detect(projectPathParser PathParser) packit.DetectFunc {
 	return func(context packit.DetectContext) (packit.DetectResult, error) {
 		projectPath, err := projectPathParser.Get(context.WorkingDir)
